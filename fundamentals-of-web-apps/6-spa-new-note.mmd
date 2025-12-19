@@ -1,0 +1,19 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: User types "DEMO" in the input field and clicks Save
+
+    Note right of browser: Form onsubmit handler triggers (e.preventDefault() stops page reload)
+    Note right of browser: JavaScript creates note object: { content: "DEMO", date: "2025-12-19T13:26:51.674Z" }
+    Note right of browser: notes.push(note) adds to local array
+    Note right of browser: Input field cleared
+    Note right of browser: redrawNotes() immediately updates DOM with new note
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa (application/json)
+    activate server
+    Note left of server: Payload: {"content":"DEMO","date":"current-date"}
+    server-->>browser: {"message":"note created"} (201 Created, application/json)
+    deactivate server
+
+    Note right of browser: XHR callback logs response to console

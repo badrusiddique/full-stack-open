@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML document (200 OK, text/html)
+    deactivate server
+
+    Note right of browser: Browser parses HTML, finds CSS and JS references
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: CSS file (200 OK, text/css)
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: JavaScript file (200 OK, application/javascript)
+    deactivate server
+
+    Note right of browser: Browser executes spa.js which initiates XHR request for data
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "note", "date": "2025-12-18T21:53:08.667Z" }, ...] (200 OK, application/json)
+    deactivate server
+
+    Note right of browser: XHR callback parses JSON, stores in 'notes' array, calls redrawNotes()
+    Note right of browser: redrawNotes() creates DOM elements and renders notes list
