@@ -120,7 +120,8 @@ console.log("-------------------------------------------");
 console.log("IMPROTANT: Arrow functions use this from the surrounding lexical scope where they were defined, not where they were called.")
 
 // IMPORTANT
-// It’s important to note that the curly braces {} of the movie object do not create scope; only functions do.
+// It’s important to note that the curly braces {} of the movie object do not create scope;
+// only functions do.
 
 const printCharacter = () => {
   console.log(this);
